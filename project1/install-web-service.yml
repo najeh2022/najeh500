@@ -1,0 +1,32 @@
+-
+  name: install httpd service 
+  hosts: webservers
+  become: yes
+  tasks:
+    - yum:
+          name: httpd
+    - service:
+           name: httpd
+           state: started
+-
+  name: Backup http directory 
+  hosts: webservers
+  become: yes
+  connection: local
+  tasks:
+    - file:
+           state: directory
+           path: /home/centos/Backup-server
+           mode: '0775'
+    - copy:
+           src: /etc/httpd/conf/httpd.conf
+           dest: /home/centos/Backup-server/httpd.conf
+           remote_src: true 
+           follow: yes
+           backup: true
+           owner: root
+           group: root
+           
+
+           
+        

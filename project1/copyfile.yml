@@ -1,0 +1,11 @@
+- name: Backup file
+  hosts: webservers
+  become: true
+  become_user: root 
+  connection: local
+  tasks:
+      - copy:
+            src: /etc/httpd/conf/httpd.conf
+            dest: /home/centos/Backup-server/httpd.conf
+            remote_src: true 
+            
